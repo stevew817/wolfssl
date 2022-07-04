@@ -50,18 +50,21 @@ int wc_silabs_se_hash_init (wc_silabs_sha_t* sha, enum wc_HashType type)
                                &sha->cmd_ctx,
                                SL_SE_HASH_SHA1,
                                &sha->hash_type_ctx);
+        sha->hash_ctx.size = 20;
         break;
     case WC_HASH_TYPE_SHA224:
         rr = sl_se_hash_starts(&sha->hash_ctx,
                                &sha->cmd_ctx,
                                SL_SE_HASH_SHA224,
                                &sha->hash_type_ctx);
+        sha->hash_ctx.size = 28;
         break;
     case WC_HASH_TYPE_SHA256:
         rr = sl_se_hash_starts(&sha->hash_ctx,
                                &sha->cmd_ctx,
                                SL_SE_HASH_SHA256,
                                &sha->hash_type_ctx);
+        sha->hash_ctx.size = 32;
         break;
 
 #ifdef WOLFSSL_SILABS_SHA384
@@ -70,6 +73,7 @@ int wc_silabs_se_hash_init (wc_silabs_sha_t* sha, enum wc_HashType type)
                                &sha->cmd_ctx,
                                SL_SE_HASH_SHA384,
                                &sha->hash_type_ctx);
+        sha->hash_ctx.size = 48;
         break;
 #endif
 
@@ -79,6 +83,7 @@ int wc_silabs_se_hash_init (wc_silabs_sha_t* sha, enum wc_HashType type)
                                &sha->cmd_ctx,
                                SL_SE_HASH_SHA512,
                                &sha->hash_type_ctx);
+        sha->hash_ctx.size = 64;
         break;
 #endif
 
