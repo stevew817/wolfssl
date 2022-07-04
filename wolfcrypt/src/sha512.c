@@ -195,8 +195,18 @@
     !defined(WOLFSSL_QNX_CAAM)
     /* functions defined in wolfcrypt/src/port/caam/caam_sha.c */
 
-#elif defined(WOLFSSL_SILABS_SHA384)
+#elif defined(WOLFSSL_SILABS_SHA512)
     /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
+
+    int wc_InitSha512(wc_Sha512* sha512)
+    {
+        return wc_InitSha512_ex(sha512, NULL, -1);
+    }
+
+    void wc_Sha512Free(wc_Sha512* sha512)
+    {
+        (void)sha512;
+    }
 
 #elif defined(WOLFSSL_KCAPI_HASH)
     /* functions defined in wolfcrypt/src/port/kcapi/kcapi_hash.c */
@@ -957,6 +967,9 @@ int wc_Sha512Update(wc_Sha512* sha512, const byte* data, word32 len)
     /* functions defined in wolfcrypt/src/port/kcapi/kcapi_hash.c */
 #elif defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
 
+#elif defined(WOLFSSL_SILABS_SHA512)
+    /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
+
 #else
 
 static WC_INLINE int Sha512Final(wc_Sha512* sha512)
@@ -1070,6 +1083,9 @@ static WC_INLINE int Sha512Final(wc_Sha512* sha512)
     /* functions defined in wolfcrypt/src/port/kcapi/kcapi_hash.c */
 #elif defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
 
+#elif defined(WOLFSSL_SILABS_SHA512)
+    /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
+
 #else
 
 static int Sha512FinalRaw(wc_Sha512* sha512, byte* hash, int digestSz)
@@ -1140,7 +1156,10 @@ int wc_Sha512Final(wc_Sha512* sha512, byte* hash)
 
 #endif /* WOLFSSL_KCAPI_HASH */
 
-#if !defined(WOLFSSL_SE050) || !defined(WOLFSSL_SE050_HASH)
+#if defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
+#elif defined(WOLFSSL_SILABS_SHA512)
+    /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
+#else
 int wc_InitSha512(wc_Sha512* sha512)
 {
     int devId = INVALID_DEVID;
@@ -1609,6 +1628,9 @@ int wc_Sha512_224Update(wc_Sha512* sha, const byte* data, word32 len)
     /* functions defined in wolfcrypt/src/port/kcapi/kcapi_hash.c */
 #elif defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
 
+#elif defined(WOLFSSL_SILABS_SHA512)
+    /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
+
 #else
 int wc_Sha512_224FinalRaw(wc_Sha512* sha, byte* hash)
 {
@@ -1628,6 +1650,8 @@ void wc_Sha512_224Free(wc_Sha512* sha)
     /* functions defined in wolfcrypt/src/port/kcapi/kcapi_hash.c */
 #elif defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
 
+#elif defined(WOLFSSL_SILABS_SHA512)
+    /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
 
 #else
 int wc_Sha512_224GetHash(wc_Sha512* sha512, byte* hash)
@@ -1672,6 +1696,9 @@ int wc_Sha512_256Update(wc_Sha512* sha, const byte* data, word32 len)
 #if defined(WOLFSSL_KCAPI_HASH)
     /* functions defined in wolfcrypt/src/port/kcapi/kcapi_hash.c */
 #elif defined(WOLFSSL_SE050) && defined(WOLFSSL_SE050_HASH)
+
+#elif defined(WOLFSSL_SILABS_SHA512)
+    /* functions defined in wolfcrypt/src/port/silabs/silabs_hash.c */
 
 #else
 int wc_Sha512_256FinalRaw(wc_Sha512* sha, byte* hash)
