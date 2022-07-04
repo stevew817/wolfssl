@@ -166,7 +166,13 @@ enum {
 #elif defined(PLUTON_CRYPTO_ECC)
     ECC_MAX_CRYPTO_HW_SIZE = 32,
 #elif defined(WOLFSSL_SILABS_SE_ACCEL)
+    #if defined(SL_SE_KEY_TYPE_ECC_P521)
+    ECC_MAX_CRYPTO_HW_SIZE = 65,
+    #elif defined(SL_SE_KEY_TYPE_ECC_P384)
+    ECC_MAX_CRYPTO_HW_SIZE = 48,
+    #else
     ECC_MAX_CRYPTO_HW_SIZE = 32,
+    #endif
 #elif defined(WOLFSSL_CRYPTOCELL)
     #ifndef CRYPTOCELL_KEY_SIZE
         CRYPTOCELL_KEY_SIZE = ECC_MAXSIZE,
